@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Chart from '../components/charts';
 
 class WeatherList extends Component{
 
@@ -11,16 +12,24 @@ class WeatherList extends Component{
 
         return (
             <tr key = {cityName}>
-                <td>{cityName}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    {cityName}
+                </td>
+                <td>
+                    <Chart color = "red" data = {cityTemp} unit = "K"/>
+                </td>
+                <td>
+                    <Chart color = "green" data = {cityPressure} unit = "hpa"/>
+                </td>
+                <td>
+                    <Chart color = "blue" data = {cityHumidity} unit = "%"/>
+                </td>
             </tr>
         )
     }
 
     render(){
-        return{
+        return(
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -34,12 +43,12 @@ class WeatherList extends Component{
                     {this.props.weather.map(this.renderWeather)}
                 </tbody>
             </table>
-        }
+        );
     }
 }
 
-mapStatetoProps({weather}){
-    return {weather}
+function mapStatetoProps({weather}){
+    return {weather};
 }
 
 export default connect(mapStatetoProps)(WeatherList);
